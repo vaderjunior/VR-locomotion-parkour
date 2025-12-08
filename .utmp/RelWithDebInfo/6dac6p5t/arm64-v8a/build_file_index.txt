@@ -1,0 +1,2 @@
+D:\IARVR\Project\Parkour Challenge\VR-locomotion-parkour\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+D:\IARVR\Project\Parkour Challenge\VR-locomotion-parkour\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
