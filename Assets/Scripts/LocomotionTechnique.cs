@@ -30,14 +30,17 @@ public class LocomotionTechnique : MonoBehaviour
 
     
     [Header("Left-hand Tilt Movement (2 modes)")]
-    public float moveAccel = 15f;
-    public float moveDrag = 4f;
+    public float moveAccel = 12f;   
+    public float moveDrag = 4f;     
 
-    [Tooltip("Tilt below this → no movement; above → constant moveSpeed")]
-    public float moveTiltThreshold = 0.08f;
+    [Tooltip("Tilt below this → no movement; above → move at moveSpeed")]
+    public float moveTiltThreshold = 0.08f;   
 
     [Tooltip("Constant walking speed when tilt is above threshold")]
-    public float moveSpeed = 4f;
+    public float moveSpeed = 9f;              
+
+    [Tooltip("Multiplier for backward movement speed (0–1). 1 = same as forward, 0.4 = slower back")]
+    [Range(0f, 1f)] public float backwardSpeedMultiplier = 0.4f;
 
     Quaternion leftNeutralWorld = Quaternion.identity;
     Vector3 upNeutralWorld = Vector3.up;
@@ -58,22 +61,31 @@ public class LocomotionTechnique : MonoBehaviour
     
     [Header("Right-hand Swirl / Whip Lift (discrete)")]
     [Tooltip("Minimum hand speed to even consider a swirl")]
-    public float swirlMinSpeed = 1.0f;
+    public float swirlMinSpeed = 0.6f; 
 
     [Tooltip("Minimum angular speed (radians/sec) of velocity direction change to count as swirl")]
-    public float swirlAngularSpeedThreshold = 6.0f;
+    public float swirlAngularSpeedThreshold = 3.5f;
+
+    [Tooltip("If speed alone is above this, accept as a big whip even if rotation was small")]
+    public float swirlHighSpeedThreshold = 3.0f;
 
     [Tooltip("Cooldown between swirl bursts (seconds)")]
-    public float swirlCooldown = 0.5f;
+    public float swirlCooldown = 0.35f;
 
     [Tooltip("Upward velocity change applied on a successful swirl")]
-    public float swirlLiftImpulse = 4.0f;
+    public float swirlLiftImpulse = 20.0f; 
+
+    [Header("Vertical clamp")]
+    [Tooltip("Maximum upward speed allowed for the avatar")]
+    public float maxUpSpeed = 18f;
 
     float swirlCooldownTimer = 0f;
     Vector3 prevRightVelDir;
     bool havePrevRightVel = false;
-    Vector3 prevRightHandPos;
-    bool prevRightHandPosValid = false;
+
+    
+    Vector3 prevRightLocalPos;
+    bool prevRightLocalValid = false;
 
     
     [Header("Left-hand Activation Zone")]
@@ -209,7 +221,6 @@ public class LocomotionTechnique : MonoBehaviour
         bool leftFistPress  = leftFistNow && !wasLeftFistLastFrame;
         wasLeftFistLastFrame = leftFistNow;
 
-        
         if (xPressed || leftFistPress)
         {
             CalibrateLeftNeutral();
@@ -226,17 +237,15 @@ public class LocomotionTechnique : MonoBehaviour
 
             
             havePrevRightVel = false;
-            prevRightHandPosValid = false;
+            prevRightLocalValid = false;
             swirlCooldownTimer = 0f;
         }
 
         
         
         
-        bool isLeftTracked = leftHand &&
-                             leftHand.IsTracked &&
-                             leftHand.HandConfidence == OVRHand.TrackingConfidence.High;
-
+        
+        bool isLeftTracked = leftHand && leftHand.IsTracked;
         bool isLeftInZone = IsLeftHandInZone();
 
         if (Time.time < neutralLockUntil || !isLeftTracked || !isLeftInZone)
@@ -265,9 +274,49 @@ public class LocomotionTechnique : MonoBehaviour
             else
             {
                 
-                Vector3 dirWorld = tiltWorld.normalized;
-                float speed = moveSpeed * translationGain;
-                targetHorizVel = dirWorld * speed;
+                Vector3 tiltDirWorld = tiltWorld.normalized;
+
+                
+                Vector3 fwd = Vector3.forward;
+                Vector3 right = Vector3.right;
+
+                if (avatarRoot)
+                {
+                    fwd = avatarRoot.forward;
+                    fwd.y = 0f;
+                    if (fwd.sqrMagnitude < 1e-4f) fwd = Vector3.forward;
+                    fwd.Normalize();
+
+                    right = avatarRoot.right;
+                    right.y = 0f;
+                    if (right.sqrMagnitude < 1e-4f) right = Vector3.right;
+                    right.Normalize();
+                }
+
+                
+                float fwdComp = Vector3.Dot(tiltDirWorld, fwd);
+                float rightComp = Vector3.Dot(tiltDirWorld, right);
+
+                
+                Vector3 moveDir = fwd * fwdComp + right * rightComp;
+
+                if (moveDir.sqrMagnitude < 1e-4f)
+                {
+                    targetHorizVel = Vector3.zero;
+                }
+                else
+                {
+                    moveDir.Normalize();
+                    float speed = moveSpeed * translationGain;
+
+                    
+                    if (fwdComp < 0f)
+                    {
+                        speed *= backwardSpeedMultiplier;
+                    }
+
+                    targetHorizVel = moveDir * speed;
+                }
             }
         }
 
@@ -276,59 +325,60 @@ public class LocomotionTechnique : MonoBehaviour
         
         swirlCooldownTimer -= Time.deltaTime;
 
-        Vector3 vWorldR = Vector3.zero;
+        Vector3 vLocalR = Vector3.zero;
         bool processSwirl = false;
         bool handInZone = IsRightHandInZone();
 
         
-        if (useHandTracking && rightHand && rightHand.IsTracked && handInZone)
+        if (useHandTracking && rightHand && rightHand.IsTracked && handInZone && hmd)
         {
-            Vector3 currentPos = rightHand.transform.position;
+            
+            Vector3 currentLocal = rightHand.transform.position - hmd.transform.position;
 
-            if (!prevRightHandPosValid)
+            if (!prevRightLocalValid)
             {
-                prevRightHandPos = currentPos;
-                prevRightHandPosValid = true;
+                prevRightLocalPos = currentLocal;
+                prevRightLocalValid = true;
             }
             else
             {
-                Vector3 delta = currentPos - prevRightHandPos;
+                Vector3 deltaLocal = currentLocal - prevRightLocalPos;
 
                 
-                if (delta.magnitude < 0.5f)
+                if (deltaLocal.magnitude < 0.5f)
                 {
-                    vWorldR = delta / Mathf.Max(Time.deltaTime, 1e-4f);
+                    vLocalR = deltaLocal / Mathf.Max(Time.deltaTime, 1e-4f);
                     processSwirl = true;
                 }
                 else
                 {
-                    vWorldR = Vector3.zero;
+                    vLocalR = Vector3.zero;
                 }
 
-                prevRightHandPos = currentPos;
+                prevRightLocalPos = currentLocal;
             }
         }
         else if (!useHandTracking)
         {
             
-            Vector3 vLocalR = OVRInput.GetLocalControllerVelocity(rightController);
-            vWorldR = transform.TransformDirection(vLocalR);
+            Vector3 vLocal = OVRInput.GetLocalControllerVelocity(rightController);
+            vLocalR = vLocal;
             processSwirl = true;
         }
         else
         {
             
-            prevRightHandPosValid = false;
+            prevRightLocalValid = false;
             havePrevRightVel = false;
         }
 
         if (processSwirl && avatarBody)
         {
-            float speed = vWorldR.magnitude;
+            float speed = vLocalR.magnitude;
 
             if (speed > swirlMinSpeed)
             {
-                Vector3 dir = vWorldR.normalized;
+                Vector3 dir = vLocalR.normalized;
 
                 if (havePrevRightVel)
                 {
@@ -338,13 +388,14 @@ public class LocomotionTechnique : MonoBehaviour
                     float angPerSec = ang / Mathf.Max(Time.deltaTime, 1e-4f);
 
                     
-                    Vector3 horiz = vWorldR;
+                    Vector3 horiz = vLocalR;
                     horiz.y = 0f;
                     float horizRatio = (speed > 1e-4f) ? (horiz.magnitude / speed) : 0f;
 
-                    if (swirlCooldownTimer <= 0f &&
-                        angPerSec > swirlAngularSpeedThreshold &&
-                        horizRatio > 0.8f) 
+                    bool circleLike = angPerSec > swirlAngularSpeedThreshold && horizRatio > 0.6f;
+                    bool bigWhip    = speed > swirlHighSpeedThreshold && horizRatio > 0.6f;
+
+                    if (swirlCooldownTimer <= 0f && (circleLike || bigWhip))
                     {
                         
                         avatarBody.AddForce(Vector3.up * swirlLiftImpulse, ForceMode.VelocityChange);
@@ -376,30 +427,37 @@ public class LocomotionTechnique : MonoBehaviour
     {
         if (!avatarBody) return;
 
-        
-        const float maxUpSpeed = 7f;
         Vector3 vel = avatarBody.linearVelocity;
+
+        
         if (vel.y > maxUpSpeed)
         {
             vel.y = maxUpSpeed;
-            avatarBody.linearVelocity = vel;
         }
 
         
-        vel = avatarBody.linearVelocity; 
         Vector3 horiz = new Vector3(vel.x, 0f, vel.z);
-        Vector3 accel = (targetHorizVel - horiz) * moveAccel - horiz * moveDrag;
-        avatarBody.AddForce(accel, ForceMode.Acceleration);
 
-        if (targetHorizVel.sqrMagnitude > 0.04f)
+        if (targetHorizVel.sqrMagnitude < 1e-4f)
         {
-            Vector3 face = targetHorizVel; face.y = 0f;
-            avatarBody.MoveRotation(
-                Quaternion.Slerp(avatarBody.rotation,
-                                 Quaternion.LookRotation(face),
-                                 0.12f)
-            );
+            
+            float stopRate = 10f; 
+            horiz = Vector3.Lerp(horiz, Vector3.zero, stopRate * Time.fixedDeltaTime);
         }
+        else
+        {
+            
+            float accelRate = moveAccel;
+            horiz = Vector3.MoveTowards(horiz, targetHorizVel, accelRate * Time.fixedDeltaTime);
+        }
+
+        vel.x = horiz.x;
+        vel.z = horiz.z;
+
+        avatarBody.linearVelocity = vel;
+
+        
+        avatarBody.angularVelocity = Vector3.zero;
     }
 
     void LateUpdate()
