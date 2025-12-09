@@ -527,7 +527,6 @@ GameObject:
   - component: {fileID: 27660927}
   - component: {fileID: 27660929}
   - component: {fileID: 27660926}
-  - component: {fileID: 27660928}
   m_Layer: 0
   m_Name: AvatarRoot
   m_TagString: Untagged
@@ -577,21 +576,9 @@ Transform:
   m_Children:
   - {fileID: 1259590699}
   - {fileID: 1806895417}
+  - {fileID: 1338295326}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &27660928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27660925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff6ea99c3ffe614a8d1c44cc7155724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locomotion: {fileID: 1757178241}
 --- !u!136 &27660929
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3208,7 +3195,7 @@ PrefabInstance:
     - target: {fileID: 3942613375915263889, guid: 6b3c85587dc0a514bbf5da8ff3106582,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 12.25
       objectReference: {fileID: 0}
     - target: {fileID: 3942613375915263889, guid: 6b3c85587dc0a514bbf5da8ff3106582,
         type: 3}
@@ -10069,7 +10056,7 @@ PrefabInstance:
     - target: {fileID: 3942613375915263889, guid: 6b3c85587dc0a514bbf5da8ff3106582,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 6.45
       objectReference: {fileID: 0}
     - target: {fileID: 3942613375915263889, guid: 6b3c85587dc0a514bbf5da8ff3106582,
         type: 3}
@@ -18062,11 +18049,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstBanner
       objectReference: {fileID: 0}
-    - target: {fileID: 104018010056798543, guid: d6eec0397e27d024081a62f2fa0e37a0,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     m_RemovedGameObjects: []
@@ -19301,11 +19283,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinalBanner
       objectReference: {fileID: 0}
-    - target: {fileID: 104018010056798543, guid: d6eec0397e27d024081a62f2fa0e37a0,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20375,6 +20352,7 @@ GameObject:
   - component: {fileID: 1259590699}
   - component: {fileID: 1259590702}
   - component: {fileID: 1259590701}
+  - component: {fileID: 1259590700}
   m_Layer: 0
   m_Name: avatar
   m_TagString: Untagged
@@ -20397,6 +20375,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 27660927}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1259590700
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259590698}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1259590701
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21392,6 +21393,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1383438848}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1338295325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1338295326}
+  - component: {fileID: 1338295328}
+  - component: {fileID: 1338295327}
+  m_Layer: 6
+  m_Name: BannerHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1338295326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338295325}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 27660927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338295327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338295325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff6ea99c3ffe614a8d1c44cc7155724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locomotion: {fileID: 1757178241}
+--- !u!136 &1338295328
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338295325}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.5831914
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1513271, z: 0}
 --- !u!1001 &1341754395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25615,11 +25685,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SecondBanner
-      objectReference: {fileID: 0}
-    - target: {fileID: 104018010056798543, guid: d6eec0397e27d024081a62f2fa0e37a0,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -34462,7 +34527,7 @@ MonoBehaviour:
   swirlAngularSpeedThreshold: 3.5
   swirlHighSpeedThreshold: 3
   swirlCooldown: 0.35
-  swirlLiftImpulse: 20
+  swirlLiftImpulse: 10
   maxUpSpeed: 18
   restrictLeftHandToZone: 1
   leftHandZoneCenterLocal: {x: 0, y: -0.25, z: 0.45}
@@ -35086,6 +35151,7 @@ GameObject:
   - component: {fileID: 1806895417}
   - component: {fileID: 1806895420}
   - component: {fileID: 1806895419}
+  - component: {fileID: 1806895418}
   m_Layer: 0
   m_Name: Airball
   m_TagString: Untagged
@@ -35108,6 +35174,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 27660927}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1806895418
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806895416}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1806895419
 MeshRenderer:
   m_ObjectHideFlags: 0
