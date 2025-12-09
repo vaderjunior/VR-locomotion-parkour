@@ -18062,6 +18062,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstBanner
       objectReference: {fileID: 0}
+    - target: {fileID: 104018010056798543, guid: d6eec0397e27d024081a62f2fa0e37a0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     m_RemovedGameObjects: []
@@ -19296,6 +19301,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinalBanner
       objectReference: {fileID: 0}
+    - target: {fileID: 104018010056798543, guid: d6eec0397e27d024081a62f2fa0e37a0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20365,7 +20375,6 @@ GameObject:
   - component: {fileID: 1259590699}
   - component: {fileID: 1259590702}
   - component: {fileID: 1259590701}
-  - component: {fileID: 1259590700}
   m_Layer: 0
   m_Name: avatar
   m_TagString: Untagged
@@ -20388,29 +20397,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 27660927}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1259590700
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259590698}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1259590701
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25629,6 +25615,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SecondBanner
+      objectReference: {fileID: 0}
+    - target: {fileID: 104018010056798543, guid: d6eec0397e27d024081a62f2fa0e37a0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -34458,20 +34449,21 @@ MonoBehaviour:
   avatarBody: {fileID: 27660926}
   cameraOffset: {x: 0, y: 1.6, z: -3}
   followLerp: 10
-  maxSpeed: 9
   moveAccel: 15
-  moveDrag: 4
-  tiltForMaxSpeed: 0.3
-  tiltDeadzone: 0.03
-  tiltGain: 1.5
+  moveTiltThreshold: 0.08
+  moveSpeed: 9
+  backwardSpeedMultiplier: 0.4
+  backwardDotThreshold: 0.7
   neutralLockDuration: 0.35
   useHandTracking: 1
   leftHand: {fileID: 1757178243}
   rightHand: {fileID: 1757178242}
-  maxLiftAccel: 25
-  swirlForMax: 3
-  minSwirlSpeed: 0.8
-  liftDecayPerSec: 2
+  swirlMinSpeed: 0.6
+  swirlAngularSpeedThreshold: 3.5
+  swirlHighSpeedThreshold: 3
+  swirlCooldown: 0.35
+  swirlLiftImpulse: 20
+  maxUpSpeed: 18
   restrictLeftHandToZone: 1
   leftHandZoneCenterLocal: {x: 0, y: -0.25, z: 0.45}
   leftHandZoneHalfExtents: {x: 0.35, y: 0.25, z: 0.25}
@@ -35094,7 +35086,6 @@ GameObject:
   - component: {fileID: 1806895417}
   - component: {fileID: 1806895420}
   - component: {fileID: 1806895419}
-  - component: {fileID: 1806895418}
   m_Layer: 0
   m_Name: Airball
   m_TagString: Untagged
@@ -35117,27 +35108,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 27660927}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1806895418
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806895416}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1806895419
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -40641,6 +40611,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StartBanner
+      objectReference: {fileID: 0}
+    - target: {fileID: 104018010056798543, guid: d6eec0397e27d024081a62f2fa0e37a0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
