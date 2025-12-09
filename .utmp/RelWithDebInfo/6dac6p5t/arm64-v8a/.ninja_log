@@ -1,10 +1,19 @@
 # ninja log v5
 98	6670	7846750049072976	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	d07f0c3bc500e28f
 131	6695	7846750049072976	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	2dc150417ddc814c
-43	6714	7846750049384860	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	bcb30898d141d99
-183	6729	7846750049621884	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	83a1ae4c43653711
-71	6766	7846750050100075	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	94d2c6b7cb15782e
+7323	7540	7846750057982322	D:/IARVR/Project/Parkour Challenge/VR-locomotion-parkour/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6dac6p5t/obj/arm64-v8a/libgame.so	6b96d58a223bd75
 164	7184	7846750054248356	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	121509a4461a301d
+43	6714	7846750049384860	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	bcb30898d141d99
+71	6766	7846750050100075	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	94d2c6b7cb15782e
+183	6729	7846750049621884	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	83a1ae4c43653711
 116	7194	7846750054248356	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	f51b02b49e331592
 6	7323	7846750055776287	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	a57a6606d8a14e2f
-7323	7540	7846750057982322	D:/IARVR/Project/Parkour Challenge/VR-locomotion-parkour/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6dac6p5t/obj/arm64-v8a/libgame.so	6b96d58a223bd75
+38	1926	7869050295811131	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	d07f0c3bc500e28f
+65	1933	7869050295895446	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	2dc150417ddc814c
+22	1954	7869050296136005	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	bcb30898d141d99
+47	1962	7869050296197845	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	83a1ae4c43653711
+30	2045	7869050297016395	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	94d2c6b7cb15782e
+74	2127	7869050297857705	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	121509a4461a301d
+56	2317	7869050299759585	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	f51b02b49e331592
+12	2402	7869050300583356	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	a57a6606d8a14e2f
+2403	2527	7869050301840993	D:/IARVR/Project/Parkour Challenge/VR-locomotion-parkour/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6dac6p5t/obj/arm64-v8a/libgame.so	6b96d58a223bd75
