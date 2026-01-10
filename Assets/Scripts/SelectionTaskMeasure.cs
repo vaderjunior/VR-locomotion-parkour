@@ -57,6 +57,8 @@ public class SelectionTaskMeasure : MonoBehaviour
 
     public void StartOneTask()
     {
+        isTaskStart = true;
+        isTaskEnd = false;
         taskTime = 0f;
         taskStartPanel.SetActive(false);
         donePanel.SetActive(true);

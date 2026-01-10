@@ -32,7 +32,7 @@ public class LocomotionTechnique : MonoBehaviour
     [Header("Left-hand Tilt Movement (2 modes)")]
     public float moveAccel = 12f;   
 
-    [Tooltip("Tilt below this → no movement; above → move at moveSpeed")]
+    [Tooltip("Tilt below this -> no movement; above -> move at moveSpeed")]
     public float moveTiltThreshold = 0.08f;   
 
     [Tooltip("Constant walking speed when tilt is above threshold")]
@@ -54,7 +54,7 @@ public class LocomotionTechnique : MonoBehaviour
     float neutralLockUntil = 0f;
 
     
-    [Header("Hand Tracking (for gestures / poses)")]
+    [Header("Hand Tracking")]
     public bool useHandTracking = true;
     public OVRHand leftHand;
     public OVRHand rightHand;
@@ -63,16 +63,16 @@ public class LocomotionTechnique : MonoBehaviour
 
     
     [Header("Right-hand Swirl / Whip Lift (discrete)")]
-    [Tooltip("Minimum hand speed to even consider a swirl")]
+    [Tooltip("Minimum hand speed to consider a swirl(#### To be Calibrated ####)")]
     public float swirlMinSpeed = 0.6f; 
 
-    [Tooltip("Minimum angular speed (radians/sec) of velocity direction change to count as swirl")]
+    [Tooltip("Minimum angular speed of velocity direction change to count as swirl(#### To be Calibrated but works for now ####)")]
     public float swirlAngularSpeedThreshold = 3.5f;
 
     [Tooltip("If speed alone is above this, accept as a big whip even if rotation was small")]
     public float swirlHighSpeedThreshold = 3.0f;
 
-    [Tooltip("Cooldown between swirl bursts (seconds)")]
+    [Tooltip("Cooldown between swirl bursts ")]
     public float swirlCooldown = 0.35f;
 
     [Tooltip("Upward velocity change applied on a successful swirl")]
@@ -524,7 +524,7 @@ public class LocomotionTechnique : MonoBehaviour
         {
             if (!selectionTaskMeasure || !hmd) return;
 
-            selectionTaskMeasure.isTaskStart = true;
+            selectionTaskMeasure.isTaskStart = false;
             selectionTaskMeasure.scoreText.text = "";
             selectionTaskMeasure.partSumErr = 0f;
             selectionTaskMeasure.partSumTime = 0f;
