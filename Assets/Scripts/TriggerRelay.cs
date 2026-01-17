@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TriggerRelay : MonoBehaviour
 {
-    public LocomotionTechnique locomotion; // drag OVRCameraRig here in Inspector
+    public LocomotionTechnique locomotion; 
 
     // Called when this object (AvatarRoot) hits a trigger collider
     void OnTriggerEnter(Collider other)

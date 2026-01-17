@@ -39,7 +39,6 @@ public class SelectionTaskMeasure : MonoBehaviour
         taskStartPanel.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isTaskStart)
