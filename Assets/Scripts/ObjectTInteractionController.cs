@@ -8,27 +8,27 @@ public class ObjectTInteractionController : MonoBehaviour
     public OVRHand leftHand;
     public OVRHand rightHand;
 
-    [Header("Hide avatar during interaction (optional)")]
+    [Header("Hide avatar during interaction")]
     public GameObject avatarRoot; 
     private Renderer[] avatarRenderers;
 
     [Header("Rotation (Left hand)")]
     public float rotationGain = 1.0f;
 
-    [Header("Translation (Right hand - POV relative, stable)")]
-    [Tooltip("Minimum angle (deg) away from neutral before movement starts")]
+    [Header("Translation (Right hand)")]
+    [Tooltip("Minimum angle away from neutral before movement starts")]
     public float translationDeadzoneDeg = 6f;
 
     [Tooltip("How many degrees from neutral corresponds to full speed")]
     public float translationMaxAngleDeg = 35f;
 
-    [Tooltip("Movement speed of the object (m/s) at full tilt")]
+    [Tooltip("Movement speed of the object at full tilt")]
     public float moveSpeed = 0.25f;
 
     [Tooltip("Multiplier for translation speed")]
     public float translationGain = 1.0f;
 
-    [Tooltip("Smoothing for translation direction (higher = snappier, lower = smoother)")]
+    [Tooltip("Smoothing for translation direction ")]
     public float translationSmoothing = 12f;
 
     [Header("Vertical translation (Right middle pinch)")]
@@ -82,7 +82,7 @@ public class ObjectTInteractionController : MonoBehaviour
 
         if (!selectionTask || !selectionTask.objectT) return;
 
-        // Calibrate right-hand neutral on entering interaction
+        // Calibrate right hand neutral on entering interaction
         if (!rightNeutralSet)
             CalibrateRightNeutral();
 
@@ -110,7 +110,7 @@ public class ObjectTInteractionController : MonoBehaviour
 
             Quaternion delta = cur * Quaternion.Inverse(prevLeftRot);
 
-            //  POV-aligned rotation (apply delta in camera yaw frame)
+            //  POV aligned rotation (apply delta in camera yaw frame)
             Camera cam = Camera.main;
             if (cam)
             {
@@ -143,7 +143,7 @@ public class ObjectTInteractionController : MonoBehaviour
         camFwd.Normalize();
         camRight.Normalize();
 
-        // --- Right hand: index pinch + tilt (hand forward direction) = camera-relative translation ---
+        // --- Right hand: index pinch + tilt (hand forward direction) = camera relative translation ---
         bool rightIndexPinch = IsPinch(rightHand, OVRHand.HandFinger.Index);
 
         if (rightIndexPinch && rightNeutralSet)
@@ -161,7 +161,7 @@ public class ObjectTInteractionController : MonoBehaviour
                 float strength = Mathf.InverseLerp(translationDeadzoneDeg, translationMaxAngleDeg, absAngle);
                 strength = Mathf.Clamp01(strength);
 
-                // forward tilt = push away (positive camFwd)
+                // forward tilt = push away 
                 float fwdComp = Vector3.Dot(fwd, camFwd);
                 float rightComp = Vector3.Dot(fwd, camRight);
 
@@ -274,7 +274,7 @@ public class ObjectTInteractionController : MonoBehaviour
     void OnDisable()
     {
         // When leaving interaction mode (this component gets disabled),
-        // make sure avatar visuals come back.
+        // make sure avatar visuals come back. #Bug fix
         SetAvatarVisible(true);
     }
 
