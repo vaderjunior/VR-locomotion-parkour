@@ -271,4 +271,17 @@ public class ObjectTInteractionController : MonoBehaviour
         foreach (var r in avatarRenderers)
             if (r) r.enabled = visible;
     }
+    void OnDisable()
+    {
+        // When leaving interaction mode (this component gets disabled),
+        // make sure avatar visuals come back.
+        SetAvatarVisible(true);
+    }
+
+    void OnDestroy()
+    {
+        // Safety if object gets destroyed
+        SetAvatarVisible(true);
+    }
+
 }

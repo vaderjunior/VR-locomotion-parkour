@@ -38,10 +38,10 @@ public class LocomotionTechnique : MonoBehaviour
     [Tooltip("Constant walking speed when tilt is above threshold")]
     public float moveSpeed = 9f;              
 
-    [Tooltip("Multiplier for strictly-backward movement speed")]
+    [Tooltip("Multiplier for backward movement speed")]
     [Range(0f, 1f)] public float backwardSpeedMultiplier = 0.4f;
 
-    [Tooltip("How 'backwards' the tilt must be (dot < -threshold) to be slowed")]
+    [Tooltip("How 'backwards' the tilt must be to be slowed")]
     [Range(0f, 1f)] public float backwardDotThreshold = 0.7f;
     
 
@@ -62,7 +62,7 @@ public class LocomotionTechnique : MonoBehaviour
     bool wasLeftFistLastFrame = false;
 
     
-    [Header("Right-hand Swirl / Whip Lift (discrete)")]
+    [Header("Right-hand Swirl and lift")]
     [Tooltip("Minimum hand speed to consider a swirl(#### To be Calibrated ####)")]
     public float swirlMinSpeed = 0.6f; 
 
@@ -91,21 +91,21 @@ public class LocomotionTechnique : MonoBehaviour
     bool prevRightLocalValid = false;
 
     
-    [Header("Left-hand Activation Zone")]
+    [Header("Left hand Activation Zone")]
     public bool restrictLeftHandToZone = true;
     public Vector3 leftHandZoneCenterLocal = new Vector3(0f, -0.25f, 0.45f);
     public Vector3 leftHandZoneHalfExtents = new Vector3(0.35f, 0.25f, 0.25f);
     public GameObject leftHandZoneVisual;
 
     
-    [Header("Right-hand Activation Zone")]
+    [Header("Right hand Activation Zone")]
     public bool restrictHandToZone = true;
     public Vector3 handZoneCenterLocal = new Vector3(0f, -0.25f, 0.45f);
     public Vector3 handZoneHalfExtents = new Vector3(0.35f, 0.25f, 0.25f);
     public GameObject handZoneVisual;
 
     
-
+    // Helper: use only the HMD yaw (ignore pitch/roll) so movement is "flat" on the ground.
     Quaternion HeadYawOnly()
     {
         if (!hmd) return Quaternion.identity;
@@ -113,6 +113,7 @@ public class LocomotionTechnique : MonoBehaviour
         return Quaternion.Euler(0f, e.y, 0f);
     }
 
+    // Get left hand/controller rotation in world space (hand tracking if available).
     Quaternion LeftRotationWorld()
     {
         if (useHandTracking && leftHand && leftHand.IsTracked)
@@ -126,6 +127,7 @@ public class LocomotionTechnique : MonoBehaviour
         }
     }
 
+    // Simple fist check using pinch strengths (used as a recalibrate gesture).
     bool IsLeftFist()
     {
         if (!useHandTracking || !leftHand || !leftHand.IsTracked) return false;
@@ -139,12 +141,14 @@ public class LocomotionTechnique : MonoBehaviour
         return index && middle && ring && pinky;
     }
 
+    // Save current left hand orientation as neutral for tilt based movement.
     void CalibrateLeftNeutral()
     {
         leftNeutralWorld = LeftRotationWorld();
         upNeutralWorld = leftNeutralWorld * Vector3.up;
     }
 
+    // %%%Not finalized%%%: only allow gestures if the hand is inside a small box in front of the head.
     bool IsRightHandInZone()
     {
         if (!restrictHandToZone) return true;
@@ -173,6 +177,7 @@ public class LocomotionTechnique : MonoBehaviour
         return inside;
     }
 
+    // %%%Not finalized%%%: only allow gestures if the hand is inside a small box in front of the head.
     bool IsLeftHandInZone()
     {
         if (!restrictLeftHandToZone) return true;
@@ -211,6 +216,7 @@ public class LocomotionTechnique : MonoBehaviour
         CalibrateLeftNeutral();
     }
 
+    // Input + locomotion logic + simple respawn.
     void Update()
     {
         
@@ -224,6 +230,7 @@ public class LocomotionTechnique : MonoBehaviour
         bool leftFistPress  = leftFistNow && !wasLeftFistLastFrame;
         wasLeftFistLastFrame = leftFistNow;
 
+        // Recalibrate: reset neutral + kill current motion + reset swirl tracking.
         if (xPressed || leftFistPress)
         {
             CalibrateLeftNeutral();
@@ -267,7 +274,8 @@ public class LocomotionTechnique : MonoBehaviour
             );
 
             float tiltMag = new Vector2(tiltWorld.x, tiltWorld.z).magnitude;
-
+            
+            // Small tilt = no move (deadzone).
             if (tiltMag < moveTiltThreshold)
             {
                 
@@ -276,6 +284,7 @@ public class LocomotionTechnique : MonoBehaviour
             else
             {
                 
+                // Convert tilt direction into head-relative move direction (so it feels natural).
                 Vector3 tiltDirWorld = tiltWorld.normalized;
 
                 
@@ -312,7 +321,7 @@ public class LocomotionTechnique : MonoBehaviour
                     moveDir.Normalize();
                     float speed = moveSpeed * translationGain;
 
-                    
+                    // Moving backward feels  fast, so slow it down a bit.
                     if (fwdComp < -backwardDotThreshold)
                     {
                         speed *= backwardSpeedMultiplier;
@@ -379,6 +388,7 @@ public class LocomotionTechnique : MonoBehaviour
         {
             float speed = vLocalR.magnitude;
 
+            // Successful swirl
             if (speed > swirlMinSpeed)
             {
                 Vector3 dir = vLocalR.normalized;
@@ -426,6 +436,7 @@ public class LocomotionTechnique : MonoBehaviour
         }
     }
 
+    // Physics step: apply target horizontal speed + clamp vertical speed.
     void FixedUpdate()
     {
         if (!avatarBody) return;
@@ -461,11 +472,12 @@ public class LocomotionTechnique : MonoBehaviour
         avatarBody.angularVelocity = Vector3.zero;
     }
 
+    // 3rd person camera follow behind the avatar .
     void LateUpdate()
     {
         if (!avatarRoot) return;
 
-        
+        // Camera goes behind wherever the user is facing .
         Vector3 viewDir;
 
         if (hmd)
