@@ -10,7 +10,9 @@ public class ObjectTInteractionController : MonoBehaviour
 
     [Header("Hide avatar during interaction")]
     public GameObject avatarRoot; 
-    private Renderer[] avatarRenderers;
+    // private Renderer[] avatarRenderers;
+    private SpriteRenderer[] avatarSprites;
+    private MeshRenderer[] avatarMeshes;
 
     [Header("Rotation (Left hand)")]
     public float rotationGain = 1.0f;
@@ -55,11 +57,21 @@ public class ObjectTInteractionController : MonoBehaviour
     // Right vertical state
     private Vector3 prevRightPos;
     private bool rightMidPinchActive;
-
+    void ForceHideMeshes()
+    {
+        if (avatarMeshes == null) return;
+        foreach (var m in avatarMeshes)
+            if (m) m.enabled = false;
+    }
     void Awake()
     {
-        if (avatarRoot)
-            avatarRenderers = avatarRoot.GetComponentsInChildren<Renderer>(true);
+        if (!avatarRoot) return;
+
+        avatarSprites = avatarRoot.GetComponentsInChildren<SpriteRenderer>(true);
+        avatarMeshes  = avatarRoot.GetComponentsInChildren<MeshRenderer>(true);
+
+        // Always hide meshes at runtime
+        ForceHideMeshes();
     }
 
     void Update()
@@ -148,7 +160,7 @@ public class ObjectTInteractionController : MonoBehaviour
 
         if (rightIndexPinch && rightNeutralSet)
         {
-            Vector3 fwd = rightHand.transform.forward;
+            Vector3 fwd = rightHand.transform.up;
             fwd.y = 0f;
             if (fwd.sqrMagnitude < 1e-6f) fwd = Vector3.forward;
             fwd.Normalize();
@@ -241,7 +253,7 @@ public class ObjectTInteractionController : MonoBehaviour
     {
         if (!rightHand || !rightHand.IsTracked) return;
 
-        Vector3 fwd = rightHand.transform.forward;
+        Vector3 fwd = rightHand.transform.up;
         fwd.y = 0f;
         if (fwd.sqrMagnitude < 1e-6f) fwd = Vector3.forward;
         fwd.Normalize();
@@ -267,10 +279,14 @@ public class ObjectTInteractionController : MonoBehaviour
 
     void SetAvatarVisible(bool visible)
     {
-        if (avatarRenderers == null || avatarRenderers.Length == 0) return;
-        foreach (var r in avatarRenderers)
-            if (r) r.enabled = visible;
+        // ensure meshes never come back
+        ForceHideMeshes();
+
+        if (avatarSprites == null || avatarSprites.Length == 0) return;
+        foreach (var s in avatarSprites)
+            if (s) s.enabled = visible;
     }
+
     void OnDisable()
     {
         // When leaving interaction mode (this component gets disabled),
