@@ -1,0 +1,19 @@
+# ninja log v5
+28	1923	7922626599210388	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	f32d7c8766166143
+40	1934	7922626599268176	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	7135a86bfad5f93e
+67	2203	7922626602051180	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	673d1a9ffced1921
+10	1975	7922626599719001	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	facea51f5ecad8ae
+1	2058	7922626600544881	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	286b137a268dd141
+79	2056	7922626600544881	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	e43dc2ef57d914f6
+54	2306	7922626603088741	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	61aa510087c533c9
+18	2418	7922626604173226	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	79916d2e784c2817
+2418	2548	7922626605468576	D:/IARVR/Project/Parkour Challenge/Airbender-Project/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/525s652x/obj/arm64-v8a/libgame.so	f7b0f4a035f7fc1
+48	2253	7922630999308479	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	f32d7c8766166143
+39	2255	7922630999358810	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	facea51f5ecad8ae
+30	2258	7922630999308479	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	7135a86bfad5f93e
+57	2271	7922630999578601	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	e43dc2ef57d914f6
+10	2299	7922630999903115	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	286b137a268dd141
+74	2405	7922631000973721	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	673d1a9ffced1921
+66	2552	7922631002431353	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	61aa510087c533c9
+19	2665	7922631003529507	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	79916d2e784c2817
+2665	3501	7922631011906268	D:/IARVR/Project/Parkour Challenge/Airbender-Project/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/525s652x/obj/arm64-v8a/libgame.so	f7b0f4a035f7fc1
