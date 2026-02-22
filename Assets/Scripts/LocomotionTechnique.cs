@@ -137,6 +137,16 @@ public class LocomotionTechnique : MonoBehaviour
         bool ring   = leftHand.GetFingerPinchStrength(OVRHand.HandFinger.Ring)   > thresh;
         bool pinky  = leftHand.GetFingerPinchStrength(OVRHand.HandFinger.Pinky)  > thresh;
 
+        /*
+        if (!useHandTracking || !leftHand || !leftHand.IsTracked) return false;
+
+        const float thresh = 0.8f;
+        bool index  = leftHand.GetFingerPinchStrength(OVRHand.HandFinger.Index)  > thresh;
+        bool middle = leftHand.GetFingerPinchStrength(OVRHand.HandFinger.Middle) > thresh;
+        bool ring   = leftHand.GetFingerPinchStrength(OVRHand.HandFinger.Ring)   > thresh;
+        bool pinky  = leftHand.GetFingerPinchStrength(OVRHand.HandFinger.Pinky)  > thresh;
+        */
+
         return index && middle && ring && pinky;
     }
 

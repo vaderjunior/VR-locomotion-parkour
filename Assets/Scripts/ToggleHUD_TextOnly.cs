@@ -1,3 +1,5 @@
+// Script to enable/disable score timings etc to give better view. Hold hands together without any pinching to trigger
+
 using UnityEngine;
 using TMPro;
 

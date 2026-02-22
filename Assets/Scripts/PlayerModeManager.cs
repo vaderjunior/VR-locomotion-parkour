@@ -1,3 +1,4 @@
+// Mode manager to shift from Interaction to Locomotion and vice versa
 using UnityEngine;
 
 public enum PlayerMode { Locomotion, ObjectInteraction }
