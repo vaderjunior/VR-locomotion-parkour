@@ -1,67 +1,63 @@
-# VR-locomotion-parkour
+# Airbending Locomotion + Interaction (VR Parkour)
 
-## Demo Video
+A hand-tracked VR locomotion + interaction project inspired by **airbending** (Avatar: The Last Airbender).
 
-2022 with Object Interaction Task
+- **Left-hand tilt** = move (direction is mapped to your view / head yaw)
+- **Right-hand swirl** = jump (one clean jump, with cooldown)
+- Includes the parkour coin loop + the **T-shape object interaction task** with mode switching
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=ZVDoHTefdR0
-" target="_blank"><img src="http://img.youtube.com/vi/ZVDoHTefdR0/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+Project website / final report page:  
+https://vaderjunior.github.io/HCI_IARVR_Blog/
 
+---
 
-2021 Version
+## Demo Videos
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=5s-vTwTFc7U
-" target="_blank"><img src="http://img.youtube.com/vi/5s-vTwTFc7U/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+Participant Run 1 (replace with your link)  
+<a href="YOUR_YOUTUBE_LINK_1" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_ID_1/0.jpg" alt="Demo 1" width="240" height="180" border="10" /></a>
+
+Participant Run 2 (replace with your link)  
+<a href="YOUR_YOUTUBE_LINK_2" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_ID_2/0.jpg" alt="Demo 2" width="240" height="180" border="10" /></a>
+
+---
 
 ## How to Start
 
-```{bash}
-git clone https://github.com/wenjietseng/VR-locomotion-parkour.git
+```bash
+git clone https://github.com/vaderjunior/HCI_IARVR_Blog.git
 ```
 
-- download the GitHub repo and open __VRParkour__ folder as a Unity project
-- implement your locomotion technique in `LocomotionTechnique.cs`
-- Selection...
-- play and see how fast and how many coins you can get!
+- Open the Unity project folder in Unity (the VRParkour project you worked in).
+- Main movement logic is in `LocomotionTechnique.cs`.
+- Mode switching is handled by `PlayerModeManager` (Locomotion ↔ Interaction).
+- Build an APK for Quest (Android) and install it (SideQuest / adb), or test in the Unity Editor.
 
-## Misc
+---
 
-### Core
+## Controls (Final)
 
-- Unity 6000.0.23f1 LTS
-- Meta XR All-in-One SDK 69.0.1
-- Oculus XR Plugin 4.3.0
+### Locomotion Mode
+- **Left hand tilt** (inside the activation zone) → move
+- **Right hand swirl** → jump (one impulse)
+- **Left fist** → recalibrate neutral (optional)
 
-### Rendering settings
+### Interaction Mode (T-shape task)
+- **Index pinch** → start task
+- **Left index pinch + wrist rotate** → rotate the object
+- **Right index pinch + tilt** → move object in XZ plane
+- **Right middle pinch + hand up/down** → move object in Y
+- **Hold both index pinches (~1s)** → finish and return to locomotion
 
-- [ref](https://developer.oculus.com/documentation/unity/unity-conf-settings/#rendering-settings)
-- Color space: Linear
-- OpenGL ES 3.0
-- Multithreaded Rendering
+---
 
-### Configuration settings
+## Tech
 
-- [ref](https://developer.oculus.com/documentation/unity/unity-conf-settings/#configuration-settings)
-- Scripting backend: IL2CPP
-- Target architectures: ARM64
+- Unity (course version / LTS)
+- Meta XR All-in-One SDK
+- Meta Quest (hand tracking enabled)
 
-### Cybersickness reduction
-
-- [Ginger VR](https://github.com/angsamuel/GingerVR) Note: This repo seems not being maintained anymore. Still, it can be a reference for implementing your cybersickness reduction technique.
-
-### Scene
-
-- [Low Poly Ultimate Pack](https://assetstore.unity.com/packages/3d/props/low-poly-ultimate-pack-54733)
-- [Forest - Low Poly Toon Battle Arena / Tower Defense Pack](https://assetstore.unity.com/packages/3d/environments/forest-low-poly-toon-battle-arena-tower-defense-pack-100080)
-
-### Sound effect and music
-
-- Winner Winner Funky Chicken Dinner (YouTube Audio Library)
-- [tone beep](https://freesound.org/people/pan14/sounds/263133/)
-- [crowd yay](https://freesound.org/people/mlteenie/sounds/169233/)
+---
 
 ## License
 
-MIT
+MIT (change if needed)
