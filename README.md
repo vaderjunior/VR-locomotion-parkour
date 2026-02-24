@@ -6,14 +6,17 @@ A hand-tracked VR locomotion + interaction project inspired by **airbending** (A
 - **Right-hand swirl** = jump (one clean jump, with cooldown)
 - Includes the parkour coin loop + the **T-shape object interaction task** with mode switching
 
-Project website / final report page:  
+Project final report page:  
 https://vaderjunior.github.io/HCI_IARVR_Blog/
 
 ---
 
 ## Demo
 
-[Watch demo video (MP4)](_Manu_IARVR_Final.mp4)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=CjFSD6uc-MQ
+" target="_blank"><img src="http://img.youtube.com/vi/CjFSD6uc-MQ/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
 ---
 
 ## How to Start
