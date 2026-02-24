@@ -11,14 +11,9 @@ https://vaderjunior.github.io/HCI_IARVR_Blog/
 
 ---
 
-## Demo Videos
+## Demo
 
-Participant Run 1 (replace with your link)  
-<a href="YOUR_YOUTUBE_LINK_1" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_ID_1/0.jpg" alt="Demo 1" width="240" height="180" border="10" /></a>
-
-Participant Run 2 (replace with your link)  
-<a href="YOUR_YOUTUBE_LINK_2" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_ID_2/0.jpg" alt="Demo 2" width="240" height="180" border="10" /></a>
-
+[Watch demo video (MP4)](_Manu_IARVR_Final.mp4)
 ---
 
 ## How to Start
