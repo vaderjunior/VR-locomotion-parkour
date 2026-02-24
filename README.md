@@ -9,6 +9,8 @@ A hand-tracked VR locomotion + interaction project inspired by **airbending** (A
 Project final report page:  
 https://vaderjunior.github.io/HCI_IARVR_Blog/
 
+Project Final APK: Airbender
+
 ---
 
 ## Demo
